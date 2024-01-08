@@ -6,14 +6,23 @@ import { useInfiniteScroll } from "@vueuse/core"
 const listEl = ref(null);
 const usersToShow = 15;
 const usersList = ref(await getUsers(usersToShow, 0));
+const fetchingData = ref(false); 
 
 const getUserOnScroll = async () => {
-  const newUsers = await getUsers(
-    usersToShow,
-    usersList.value.length
-  );
+  fetchingData.value = true;
+  await new Promise((res) => setTimeout(res, 2000));
 
-  usersList.value.push(...newUsers);
+  try {
+    const newUsers = await getUsers(
+      usersToShow,
+      usersList.value.length
+    );
+
+    fetchingData.value = false;
+    usersList.value.push(...newUsers);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 useInfiniteScroll(
@@ -32,6 +41,9 @@ useInfiniteScroll(
         {{ user.firstName }}
       </li>
     </ul>
+    <p v-show="fetchingData">
+      Fetching more users... please hold
+    </p>
   </div>
 </template>
 
