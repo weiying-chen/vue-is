@@ -7,8 +7,11 @@ const listEl = ref(null);
 const usersToShow = 15;
 const usersList = ref(await getUsers(usersToShow, 0));
 const fetchingData = ref(false); 
+const noMoreUsers = ref(false);
 
 const getUserOnScroll = async () => {
+  if(noMoreUsers.value) return;
+
   fetchingData.value = true;
   await new Promise((res) => setTimeout(res, 2000));
 
@@ -17,6 +20,10 @@ const getUserOnScroll = async () => {
       usersToShow,
       usersList.value.length
     );
+
+    if (newUsers.length === 0) {
+      noMoreUsers.value = true;
+    }
 
     fetchingData.value = false;
     usersList.value.push(...newUsers);
