@@ -1,11 +1,28 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import getUsers from '../api/getUsers'
+import { useInfiniteScroll } from "@vueuse/core"
 
-const liEl = ref(null);
+const listEl = ref(null);
 const usersToShow = 15;
 const usersList = ref(await getUsers(usersToShow, 0));
 
+const getUserOnScroll = async () => {
+  const newUsers = await getUsers(
+    usersToShow,
+    usersList.value.length
+  );
+
+  usersList.value.push(...newUsers);
+}
+
+useInfiniteScroll(
+  listEl,
+  async () => {
+    await getUserOnScroll();
+  },
+  { distance: 10 }
+)
 </script>
 
 <template>
