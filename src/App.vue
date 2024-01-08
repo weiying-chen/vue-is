@@ -3,25 +3,24 @@ import InfiniteScroll from './components/InfiniteScroll.vue';
 </script>
 
 <template>
-  <div class="app">
-    <InfiniteScroll />
-  </div>
+  <main>
+    <h1>Infinite Scrolling Component</h1>
+    <Suspense>
+      <InfiniteScroll />
+      <template #fallback>
+        <p>Loading...</p>
+      </template>
+    </Suspense>
+    <p>Made with ♥ by Wei-Ying Chen</p>
+  </main>
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
-@import './styles.css';
-
-.app {
+main {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-
-  .error {
-    color: #ff0000;
-  }
+  justify-content: center;
 }
 </style>

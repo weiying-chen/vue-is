@@ -1,9 +1,38 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import getUsers from '../api/getUsers'
+
+const liEl = ref(null);
+const usersToShow = 15;
+const usersList = ref(await getUsers(usersToShow, 0));
+
 </script>
 
 <template>
-  <div></div>
+  <div>
+    <ul ref="listEl">
+      <li v-for="user in usersList">
+        {{ user.firstName }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style scoped>
+ul {
+  background-color: #41b480;
+  list-style: none;
+  max-height: 600px;
+  width: 600px;
+  overflow: scroll;
+  padding: 12px 20px;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+li {
+  padding: 12px 0;
+  color: #fff;
+  font-size: 18px;
+}
 </style>
