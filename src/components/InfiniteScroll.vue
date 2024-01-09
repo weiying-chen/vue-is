@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import getUsers from '../api/getUsers'
+import getRepos from '../api/getRepos'
 import { useInfiniteScroll } from "@vueuse/core"
 
 const listEl = ref(null);
-const usersToShow = 10;
-const usersList = ref(await getUsers(usersToShow, 0));
+const username = 'tj';
+const perPage = 10;
+const repoList = ref(await getRepos(username, perPage));
 const fetchingData = ref(false); 
 const noMoreUsers = ref(false);
 
@@ -16,17 +17,17 @@ const getUserOnScroll = async () => {
   await new Promise((res) => setTimeout(res, 2000));
 
   try {
-    const newUsers = await getUsers(
-      usersToShow,
-      usersList.value.length
+    const newRepos = await getRepos(
+      username,
+      perPage,
     );
 
-    if (newUsers.length === 0) {
+    if (newRepos.length === 0) {
       noMoreUsers.value = true;
     }
 
     fetchingData.value = false;
-    usersList.value.push(...newUsers);
+    repoList.value.push(...newRepos);
   } catch (err) {
     console.log(err);
   }
@@ -43,11 +44,11 @@ useInfiniteScroll(
 
 <template>
   <div>
-    <ul ref="listEl">
-      <li v-for="user in usersList">
-        {{ user.firstName }}
-      </li>
-    </ul>
+    <div class="repos" ref="listEl">
+      <div class="repo" v-for="repo in repoList">
+        {{ repo.name }}
+      </div>
+    </div>
     <p v-show="fetchingData">
       Fetching more users... please hold
     </p>
@@ -55,7 +56,7 @@ useInfiniteScroll(
 </template>
 
 <style scoped>
-ul {
+.repos {
   background-color: #41b480;
   list-style: none;
   max-height: 400px;
@@ -66,7 +67,7 @@ ul {
     0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
-li {
+.repo {
   padding: 12px 0;
   color: #fff;
   font-size: 18px;
