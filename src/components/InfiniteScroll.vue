@@ -4,7 +4,7 @@ import getUsers from '../api/getUsers'
 import { useInfiniteScroll } from "@vueuse/core"
 
 const listEl = ref(null);
-const usersToShow = 15;
+const usersToShow = 10;
 const usersList = ref(await getUsers(usersToShow, 0));
 const fetchingData = ref(false); 
 const noMoreUsers = ref(false);
@@ -58,7 +58,7 @@ useInfiniteScroll(
 ul {
   background-color: #41b480;
   list-style: none;
-  max-height: 600px;
+  max-height: 400px;
   width: 600px;
   overflow: scroll;
   padding: 12px 20px;
