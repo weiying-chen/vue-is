@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import getRepos from '../api/getRepos'
-import { useInfiniteScroll } from "@vueuse/core"
+import { useInfiniteScroll } from '@vueuse/core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faEye, faCodeBranch, faStar } from '@fortawesome/free-solid-svg-icons'
+
+import Spinner from './Spinner.vue'
 
 const listEl = ref(null);
 const username = 'tj';
@@ -43,33 +47,70 @@ useInfiniteScroll(
 </script>
 
 <template>
-  <div>
-    <div class="repos" ref="listEl">
-      <div class="repo" v-for="repo in repoList">
-        {{ repo.name }}
+  <div class="repos" ref="listEl">
+    <div class="repo" v-for="repo in repoList" :key="repo.id">
+      <h3>
+        <a :href="repo.html_url" target="_blank">{{ repo.name }}</a>
+      </h3>
+      <div class="stats">
+        <span><FontAwesomeIcon :icon="faEye" /> {{ repo.watchers_count }}</span>
+        <span><FontAwesomeIcon :icon="faCodeBranch" /> {{ repo.forks_count }}</span>
+        <span><FontAwesomeIcon :icon="faStar" /> {{ repo.stargazers_count }}</span>
       </div>
     </div>
-    <p v-show="fetchingData">
-      Fetching more users... please hold
-    </p>
+    <Spinner v-show="fetchingData" />
   </div>
 </template>
 
 <style scoped>
 .repos {
   background-color: #41b480;
-  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-height: 400px;
-  width: 600px;
-  overflow: scroll;
-  padding: 12px 20px;
+  max-width: 600px;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0;
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
     0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 .repo {
-  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
   color: #fff;
   font-size: 18px;
+  width: 100%;
+  text-decoration: none;
 }
+
+.repo h3 {
+  margin: 0 0 0 6px;
+}
+
+.repo a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.repo .stats {
+  margin: 0 6px 0 0;
+}
+
+.repo span {
+  font-size: 14px;
+  margin-left: 10px;
+  opacity: 0.5;
+}
+
+.repo a:hover {
+  text-decoration: underline;
+}
+
 </style>

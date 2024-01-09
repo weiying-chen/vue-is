@@ -11,16 +11,28 @@ import InfiniteScroll from './components/InfiniteScroll.vue';
         <p>Loading...</p>
       </template>
     </Suspense>
-    <p>Made with ♥ by Wei-Ying Chen</p>
+    <p>Crafted by Wei-ying Chen</p>
   </main>
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
 main {
+  font-family: "Nunito", sans-serif;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+main h1 {
+  color: #222;
+  text-align: center;
+}
+
+main p {
+  color: #666;
 }
 </style>
