@@ -24,6 +24,8 @@ const getUserOnScroll = async () => {
       perPage,
     );
 
+    console.log(newRepos)
+
     if (newRepos.length === 0) {
       noMoreUsers.value = true;
     }
@@ -89,7 +91,7 @@ useInfiniteScroll(
 }
 
 .repo h3 {
-  margin: 0 0 0 6px;
+  margin: 0 0 0 12px;
 }
 
 .repo a {
@@ -98,11 +100,12 @@ useInfiniteScroll(
 }
 
 .repo .stats {
-  margin: 0 6px 0 0;
+  margin: 0 12px 0 0;
 }
 
 .repo span {
   font-size: 14px;
+  font-weight: bold;
   margin-left: 10px;
   opacity: 0.5;
 }
