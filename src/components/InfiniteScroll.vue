@@ -3,9 +3,7 @@ import { ref } from 'vue';
 import getRepos from '../api/getRepos'
 import { useInfiniteScroll } from '@vueuse/core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faEye, faCodeBranch, faStar } from '@fortawesome/free-solid-svg-icons'
-
-import Spinner from './Spinner.vue'
+import { faEye, faCodeBranch, faStar, faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const listEl = ref(null);
 const username = 'tj';
@@ -42,7 +40,7 @@ useInfiniteScroll(
   async () => {
     await getUserOnScroll();
   },
-  { distance: 10 }
+  { distance: 5 }
 )
 </script>
 
@@ -58,7 +56,7 @@ useInfiniteScroll(
         <span><FontAwesomeIcon :icon="faStar" /> {{ repo.stargazers_count }}</span>
       </div>
     </div>
-    <Spinner v-show="fetchingData" />
+    <FontAwesomeIcon :icon="faSpinner" class="spinner" pulse />
   </div>
 </template>
 
@@ -66,6 +64,7 @@ useInfiniteScroll(
 .repos {
   background-color: #41b480;
   display: flex;
+  color: #fff;
   flex-direction: column;
   align-items: center;
   max-height: 400px;
@@ -84,7 +83,6 @@ useInfiniteScroll(
   justify-content: space-between;
   align-items: center;
   padding: 6px 0;
-  color: #fff;
   font-size: 18px;
   width: 100%;
   text-decoration: none;
@@ -111,6 +109,11 @@ useInfiniteScroll(
 
 .repo a:hover {
   text-decoration: underline;
+}
+
+.spinner {
+  font-size: 30px;
+  margin: 6px 0;
 }
 
 </style>
