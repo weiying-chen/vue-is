@@ -24,8 +24,6 @@ const getUserOnScroll = async () => {
       perPage,
     );
 
-    console.log(newRepos)
-
     if (newRepos.length === 0) {
       noMoreUsers.value = true;
     }

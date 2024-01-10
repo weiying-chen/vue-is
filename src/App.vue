@@ -11,11 +11,11 @@ import InfiniteScroll from './components/InfiniteScroll.vue';
         <p>Loading...</p>
       </template>
     </Suspense>
-    <p>Crafted by Wei-ying Chen</p>
+    <p>Crafted by <a href="https://github.com/weiying-chen"> Wei-ying Chen</a></p>
   </main>
 </template>
 
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
 
 main {
@@ -34,5 +34,14 @@ main h1 {
 
 main p {
   color: #666;
+}
+
+main a {
+  color: #41b480;
+  text-decoration: none;
+}
+
+main a:hover {
+  text-decoration: underline;
 }
 </style>
