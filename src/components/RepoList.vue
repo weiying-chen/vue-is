@@ -12,10 +12,10 @@ defineProps<{
 
 const emit = defineEmits(['scrollAction']);
 
-const reposEl = ref(null);
+const listEl = ref(null);
 
 useInfiniteScroll(
-  reposEl,
+  listEl,
   async () => {
     emit('scrollAction');
   },
@@ -27,7 +27,7 @@ useInfiniteScroll(
 </script>
 
 <template>
-  <div class="repos" ref="reposEl">
+  <div class="repos" ref="listEl">
     <div class="repo" v-for="repo in repos" :key="repo.id">
       <h3>
         <a :href="repo.html_url" target="_blank">{{ repo.name }}</a>

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { Repo } from '../types'
 
-const getGitHubRepos = async (username, perPage = 10) => {
+const getGitHubRepos = async (username: string, perPage = 10) => {
   try {
     const countResponse = await axios.get(`https://api.github.com/users/${username}`);
     const totalCount = countResponse.data.public_repos;
@@ -15,7 +16,17 @@ const getGitHubRepos = async (username, perPage = 10) => {
       }
     });
 
-    return repoResponse.data;
+    // Map the response data to only include the fields you need
+    const repos: Repo[] = repoResponse.data.map((repo: Repo) => ({
+      id: repo.id,
+      html_url: repo.html_url,
+      name: repo.name,
+      watchers_count: repo.watchers_count,
+      forks_count: repo.forks_count,
+      stargazers_count: repo.stargazers_count,
+    }));
+
+    return repos;
   } catch (error) {
     console.error("Error fetching GitHub repositories:", error);
     return [];

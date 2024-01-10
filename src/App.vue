@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import InfiniteScroll from './components/InfiniteScroll.vue';
+import { Repo } from './types'
+import RepoList from './components/RepoList.vue';
 import getRepos from './api/getRepos'
 
 const username = 'tj';
 const perPage = 10;
-const repoList = ref<unknown[]>([]);
+const repos = ref<Repo[]>([]);
 const fetchingData = ref(false); 
 const noMoreUsers = ref(false);
 
@@ -25,7 +26,7 @@ const getUserOnScroll = async () => {
     }
 
     fetchingData.value = false;
-    repoList.value.push(...newRepos);
+    repos.value.push(...newRepos);
   } catch (err) {
     console.log(err);
   }
@@ -36,8 +37,8 @@ const getUserOnScroll = async () => {
   <main>
     <h1>Infinite Scrolling Component</h1>
     <Suspense>
-      <InfiniteScroll
-        :items="repoList"
+      <RepoList
+        :repos="repos"
         @scrollAction="getUserOnScroll"
       />
       <template #fallback>
