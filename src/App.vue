@@ -1,12 +1,45 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import InfiniteScroll from './components/InfiniteScroll.vue';
+import getRepos from './api/getRepos'
+
+const username = 'tj';
+const perPage = 10;
+const repoList = ref<unknown[]>([]);
+const fetchingData = ref(false); 
+const noMoreUsers = ref(false);
+
+const getUserOnScroll = async () => {
+  if (noMoreUsers.value) return;
+
+  fetchingData.value = true;
+
+  try {
+    const newRepos = await getRepos(
+      username,
+      perPage,
+    );
+
+    if (newRepos.length === 0) {
+      noMoreUsers.value = true;
+    }
+
+    fetchingData.value = false;
+    repoList.value.push(...newRepos);
+  } catch (err) {
+    console.log(err);
+  }
+}
 </script>
 
 <template>
   <main>
     <h1>Infinite Scrolling Component</h1>
     <Suspense>
-      <InfiniteScroll />
+      <InfiniteScroll
+        :items="repoList"
+        @scrollAction="getUserOnScroll"
+      />
       <template #fallback>
         <p>Loading...</p>
       </template>

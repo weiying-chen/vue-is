@@ -1,59 +1,40 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import getRepos from '../api/getRepos'
+import { defineProps } from 'vue';
 import { useInfiniteScroll } from '@vueuse/core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faEye, faCodeBranch, faStar, faSpinner } from '@fortawesome/free-solid-svg-icons'
 
+defineProps<{
+  items: any
+}>();
+
+const emit = defineEmits(['scrollAction']);
+
 const listEl = ref(null);
-const username = 'tj';
-const perPage = 10;
-const repoList = ref(await getRepos(username, perPage));
-const fetchingData = ref(false); 
-const noMoreUsers = ref(false);
-
-const getUserOnScroll = async () => {
-  if(noMoreUsers.value) return;
-
-  fetchingData.value = true;
-  await new Promise((res) => setTimeout(res, 2000));
-
-  try {
-    const newRepos = await getRepos(
-      username,
-      perPage,
-    );
-
-    if (newRepos.length === 0) {
-      noMoreUsers.value = true;
-    }
-
-    fetchingData.value = false;
-    repoList.value.push(...newRepos);
-  } catch (err) {
-    console.log(err);
-  }
-}
 
 useInfiniteScroll(
   listEl,
   async () => {
-    await getUserOnScroll();
+    emit('scrollAction');
   },
-  { distance: 5 }
+  {
+    distance: 5,
+    interval: 5000
+  }
 )
 </script>
 
 <template>
-  <div class="repos" ref="listEl">
-    <div class="repo" v-for="repo in repoList" :key="repo.id">
+  <div class="items" ref="listEl">
+    <div class="item" v-for="item in items" :key="item.id">
       <h3>
-        <a :href="repo.html_url" target="_blank">{{ repo.name }}</a>
+        <a :href="item.html_url" target="_blank">{{ item.name }}</a>
       </h3>
       <div class="stats">
-        <span><FontAwesomeIcon :icon="faEye" /> {{ repo.watchers_count }}</span>
-        <span><FontAwesomeIcon :icon="faCodeBranch" /> {{ repo.forks_count }}</span>
-        <span><FontAwesomeIcon :icon="faStar" /> {{ repo.stargazers_count }}</span>
+        <span><FontAwesomeIcon :icon="faEye" /> {{ item.watchers_count }}</span>
+        <span><FontAwesomeIcon :icon="faCodeBranch" /> {{ item.forks_count }}</span>
+        <span><FontAwesomeIcon :icon="faStar" /> {{ item.stargazers_count }}</span>
       </div>
     </div>
     <FontAwesomeIcon :icon="faSpinner" class="spinner" pulse />
@@ -61,7 +42,7 @@ useInfiniteScroll(
 </template>
 
 <style scoped>
-.repos {
+.items {
   background-color: #41b480;
   display: flex;
   color: #fff;
@@ -77,7 +58,7 @@ useInfiniteScroll(
     0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
-.repo {
+.item {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-between;
@@ -88,27 +69,27 @@ useInfiniteScroll(
   text-decoration: none;
 }
 
-.repo h3 {
+.item h3 {
   margin: 0 0 0 12px;
 }
 
-.repo a {
+.item a {
   color: #fff;
   text-decoration: none;
 }
 
-.repo .stats {
+.item .stats {
   margin: 0 12px 0 0;
 }
 
-.repo span {
+.item span {
   font-size: 14px;
   font-weight: bold;
   margin-left: 10px;
   opacity: 0.5;
 }
 
-.repo a:hover {
+.item a:hover {
   text-decoration: underline;
 }
 
