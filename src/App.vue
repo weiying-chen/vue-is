@@ -2,30 +2,30 @@
 import { ref } from 'vue';
 import { Repo } from './types'
 import RepoList from './components/RepoList.vue';
-import getRepos from './api/getRepos'
+import fetchRepos from './api/fetchRepos'
 
 const username = 'tj';
 const perPage = 10;
 const repos = ref<Repo[]>([]);
-const fetchingData = ref(false); 
-const noMoreUsers = ref(false);
+const fetchingRepos = ref(false); 
+const noMoreRepos = ref(false);
 
-const getUserOnScroll = async () => {
-  if (noMoreUsers.value) return;
+async function getRepos() {
+  if (noMoreRepos.value) return;
 
-  fetchingData.value = true;
+  fetchingRepos.value = true;
 
   try {
-    const newRepos = await getRepos(
+    const newRepos = await fetchRepos(
       username,
       perPage,
     );
 
     if (newRepos.length === 0) {
-      noMoreUsers.value = true;
+      noMoreRepos.value = true;
     }
 
-    fetchingData.value = false;
+    fetchingRepos.value = false;
     repos.value.push(...newRepos);
   } catch (err) {
     console.log(err);
@@ -39,7 +39,7 @@ const getUserOnScroll = async () => {
     <Suspense>
       <RepoList
         :repos="repos"
-        @scrollAction="getUserOnScroll"
+        @scrollAction="getRepos"
       />
       <template #fallback>
         <p>Loading...</p>

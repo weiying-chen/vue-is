@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Repo } from '../types'
 
-const getGitHubRepos = async (username: string, perPage = 10) => {
+async function fetchRepos(username: string, perPage = 10) {
   try {
     const countResponse = await axios.get(`https://api.github.com/users/${username}`);
     const totalCount = countResponse.data.public_repos;
@@ -16,7 +16,6 @@ const getGitHubRepos = async (username: string, perPage = 10) => {
       }
     });
 
-    // Map the response data to only include the fields you need
     const repos: Repo[] = repoResponse.data.map((repo: Repo) => ({
       id: repo.id,
       html_url: repo.html_url,
@@ -33,4 +32,4 @@ const getGitHubRepos = async (username: string, perPage = 10) => {
   }
 }
 
-export default getGitHubRepos;
+export default fetchRepos;
