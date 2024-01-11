@@ -23,6 +23,5 @@ npm run dev
 npm run build
 
 # Lint files
-npx eslint "src/**/*.ts"
-
+npx eslint "src/**/*.{ts,vue}"
 ```

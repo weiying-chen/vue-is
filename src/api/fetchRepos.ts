@@ -32,8 +32,8 @@ async function fetchRepos(username: string, perPage = 10) {
     }));
 
     return repos;
-  } catch (error) {
-    console.error('Error fetching GitHub repositories:', error);
+  } catch (err) {
+    console.error('Error fetching GitHub repositories:', err);
     return [];
   }
 }

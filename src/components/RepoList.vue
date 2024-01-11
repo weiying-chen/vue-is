@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Repo } from '../types'
-import { useInfiniteScroll } from '@vueuse/core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faEye, faCodeBranch, faStar, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { useInfiniteScroll } from '@vueuse/core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import {
+  faEye,
+  faCodeBranch,
+  faStar,
+  faSpinner,
+} from '@fortawesome/free-solid-svg-icons';
+import { Repo } from '../types';
 
 defineProps<{
   repos: Repo[];
@@ -20,21 +25,25 @@ useInfiniteScroll(
   },
   {
     distance: 5,
-    interval: 5000
-  }
-)
+    interval: 5000,
+  },
+);
 </script>
 
 <template>
-  <div class="repos" ref="reposEl">
-    <div class="repo" v-for="repo in repos" :key="repo.id">
+  <div ref="reposEl" class="repos">
+    <div v-for="repo in repos" :key="repo.id" class="repo">
       <h3>
         <a :href="repo.html_url" target="_blank">{{ repo.name }}</a>
       </h3>
       <div class="stats">
         <span><FontAwesomeIcon :icon="faEye" /> {{ repo.watchers_count }}</span>
-        <span><FontAwesomeIcon :icon="faCodeBranch" /> {{ repo.forks_count }}</span>
-        <span><FontAwesomeIcon :icon="faStar" /> {{ repo.stargazers_count }}</span>
+        <span
+          ><FontAwesomeIcon :icon="faCodeBranch" /> {{ repo.forks_count }}</span
+        >
+        <span
+          ><FontAwesomeIcon :icon="faStar" /> {{ repo.stargazers_count }}</span
+        >
       </div>
     </div>
     <FontAwesomeIcon :icon="faSpinner" class="spinner" pulse />
@@ -54,7 +63,8 @@ useInfiniteScroll(
   overflow-x: hidden;
   overflow-y: auto;
   padding: 0;
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+  box-shadow:
+    0 20px 25px -5px rgb(0 0 0 / 0.1),
     0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
@@ -73,20 +83,20 @@ useInfiniteScroll(
   h3 {
     margin: 0 0 0 12px;
   }
-  
+
   a {
     color: #fff;
     text-decoration: none;
-    
+
     &:hover {
       text-decoration: underline;
     }
   }
-  
+
   .stats {
     margin: 0 12px 0 0;
   }
-  
+
   span {
     font-size: 14px;
     font-weight: bold;
@@ -99,5 +109,4 @@ useInfiniteScroll(
   font-size: 30px;
   margin: 6px 0;
 }
-
 </style>

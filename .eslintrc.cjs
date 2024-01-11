@@ -2,20 +2,24 @@ module.exports = {
   root: true,
   extends: [
     'eslint:recommended',
+    'plugin:vue/vue3-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
     'airbnb-base',
-    'airbnb-typescript/base'
+    'airbnb-typescript/base',
+    'prettier'
   ],
-  parser: '@typescript-eslint/parser',
+  parser: 'vue-eslint-parser',
   parserOptions: {
-    project: ['./tsconfig.json', './tsconfig.node.json']
+    parser: '@typescript-eslint/parser',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    extraFileExtensions: ['.vue']
   },
   plugins: [
     '@typescript-eslint',
-    'prettier'
   ],
   rules: {
+    'no-console': ['error', { 'allow': ['warn', 'error'] }],
     '@typescript-eslint/strict-boolean-expressions': [
       2,
       {
