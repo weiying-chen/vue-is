@@ -35,7 +35,7 @@ async function getRepos() {
 
 <template>
   <main>
-    <h1>Infinite Scrolling Component</h1>
+    <h1>{{ username }}'s repos</h1>
     <Suspense>
       <RepoList
         :repos="repos"
@@ -64,6 +64,7 @@ main {
 main h1 {
   color: #222;
   text-align: center;
+  text-transform: capitalize;
 }
 
 main p {

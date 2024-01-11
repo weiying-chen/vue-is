@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Repo } from '../types'
-import { defineProps } from 'vue';
 import { useInfiniteScroll } from '@vueuse/core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faEye, faCodeBranch, faStar, faSpinner } from '@fortawesome/free-solid-svg-icons'
