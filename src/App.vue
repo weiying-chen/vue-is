@@ -41,9 +41,6 @@ async function getRepos() {
         :repos="repos"
         @scrollAction="getRepos"
       />
-      <template #fallback>
-        <p>Loading...</p>
-      </template>
     </Suspense>
     <p>Crafted by <a href="https://github.com/weiying-chen"> Wei-ying Chen</a></p>
   </main>
