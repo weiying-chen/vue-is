@@ -3,7 +3,9 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    ''plugin:prettier/recommended''
+    'plugin:prettier/recommended',
+    'airbnb-base',
+    'airbnb-typescript/base'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -11,7 +13,7 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
-    'prettier',
+    'prettier'
   ],
   rules: {
     '@typescript-eslint/strict-boolean-expressions': [

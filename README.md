@@ -25,7 +25,4 @@ npm run build
 # Lint files
 npx eslint "src/**/*.ts"
 
-# Format files
-npx prettier --write .
-
 ```
