@@ -2,14 +2,16 @@ module.exports = {
   root: true,
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended'
+    'plugin:@typescript-eslint/recommended',
+    ''plugin:prettier/recommended''
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: ['./tsconfig.json', './tsconfig.node.json']
   },
   plugins: [
-    '@typescript-eslint'
+    '@typescript-eslint',
+    'prettier',
   ],
   rules: {
     '@typescript-eslint/strict-boolean-expressions': [

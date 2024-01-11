@@ -2,9 +2,9 @@
 
 Search population by city or state.
 
-![](https://github.com/weiying-chen/vue-infinite-scrolling/blob/main/screenshot.png)
+![](https://github.com/weiying-chen/vue-is/blob/main/screenshot.png)
 
-**[Live Demo](https://vue-infinite-scrolling.vercel.app/)**
+**[Live Demo](https://vue-is.vercel.app/)**
 
 ## Installation
 
@@ -21,4 +21,11 @@ npm run dev
 
 # Build app
 npm run build
+
+# Lint files
+npx eslint "src/**/*.ts"
+
+# Format files
+npx prettier --write .
+
 ```
