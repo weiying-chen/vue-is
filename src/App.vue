@@ -58,22 +58,24 @@ main {
   justify-content: center;
 }
 
-main h1 {
-  color: #222;
-  text-align: center;
-  text-transform: capitalize;
-}
-
-main p {
-  color: #666;
-}
-
-main a {
-  color: #41b480;
-  text-decoration: none;
-}
-
-main a:hover {
-  text-decoration: underline;
+main {
+  h1 {
+    color: #222;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  
+  p {
+    color: #666;
+  }
+  
+  a {
+    color: #41b480;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 </style>

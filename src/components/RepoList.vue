@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Repo } from '../types'
-import { defineProps } from 'vue';
 import { useInfiniteScroll } from '@vueuse/core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faEye, faCodeBranch, faStar, faSpinner } from '@fortawesome/free-solid-svg-icons'
@@ -12,10 +11,10 @@ defineProps<{
 
 const emit = defineEmits(['scrollAction']);
 
-const listEl = ref(null);
+const reposEl = ref(null);
 
 useInfiniteScroll(
-  listEl,
+  reposEl,
   async () => {
     emit('scrollAction');
   },
@@ -27,7 +26,7 @@ useInfiniteScroll(
 </script>
 
 <template>
-  <div class="repos" ref="listEl">
+  <div class="repos" ref="reposEl">
     <div class="repo" v-for="repo in repos" :key="repo.id">
       <h3>
         <a :href="repo.html_url" target="_blank">{{ repo.name }}</a>
@@ -70,28 +69,30 @@ useInfiniteScroll(
   text-decoration: none;
 }
 
-.repo h3 {
-  margin: 0 0 0 12px;
-}
-
-.repo a {
-  color: #fff;
-  text-decoration: none;
-}
-
-.repo .stats {
-  margin: 0 12px 0 0;
-}
-
-.repo span {
-  font-size: 14px;
-  font-weight: bold;
-  margin-left: 10px;
-  opacity: 0.5;
-}
-
-.repo a:hover {
-  text-decoration: underline;
+.repo {
+  h3 {
+    margin: 0 0 0 12px;
+  }
+  
+  a {
+    color: #fff;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  .stats {
+    margin: 0 12px 0 0;
+  }
+  
+  span {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+    opacity: 0.5;
+  }
 }
 
 .spinner {
