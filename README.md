@@ -1,10 +1,10 @@
-# Vue Infinite Scrolling
+# Vue IS
 
-Search population by city or state.
+Infinite scroll with Vue
 
 ![](https://github.com/weiying-chen/vue-is/blob/main/screenshot.png)
 
-**[Live Demo](https://vue-is.vercel.app/)**
+**[Live Demo](https://weiying-chen.github.io/vue-is/)**
 
 ## Installation
 
