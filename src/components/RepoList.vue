@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useInfiniteScroll } from '@vueuse/core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 import {
   faEye,
   faCodeBranch,
@@ -15,7 +16,6 @@ defineProps<{
 }>();
 
 const emit = defineEmits(['scrollAction']);
-
 const reposEl = ref(null);
 
 useInfiniteScroll(
